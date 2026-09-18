@@ -1,28 +1,30 @@
-name: Generate Snake Activity Animation
+name: Generate Contribution Snake
 
 on:
   schedule:
-    - cron: "0 0 * * *" # Executa automaticamente todas as noites à meia-noite
+    - cron: "0 0 * * *" # Executa diariamente à meia-noite
   workflow_dispatch:
-
-permissions:
-  contents: write
+  push:
+    branches:
+      - main
 
 jobs:
   generate:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
 
     steps:
       - name: Generate github-contribution-grid-snake.svg
         uses: Platane/snk/svg-only@v3
         with:
-          github_user_name: cbsandes
+          github_user_name: jhsfhtls
           outputs: |
             dist/github-contribution-grid-snake.svg
             dist/github-contribution-grid-snake-dark.svg?palette=github-dark
 
-      - name: Deploy to output branch
+      - name: Deploy to Output Branch
         uses: crazy-max/ghaction-github-pages@v3.1.0
         with:
           target_branch: output
